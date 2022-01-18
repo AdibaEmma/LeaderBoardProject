@@ -1,6 +1,8 @@
 package io.turntabl.leaderboardservice.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.CascadeType;
@@ -13,7 +15,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "PROFILES")
-@Data
+@Getter
+@Setter
 @Accessors(chain = true)
 public class Profile {
 

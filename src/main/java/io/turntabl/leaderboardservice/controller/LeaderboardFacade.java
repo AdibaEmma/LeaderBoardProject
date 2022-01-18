@@ -1,12 +1,17 @@
 package io.turntabl.leaderboardservice.controller;
 
+import io.turntabl.leaderboardservice.controller.response.LanguageLevelDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import io.turntabl.leaderboardservice.converter.ProfileToProfileDtoConverter;
+import io.turntabl.leaderboardservice.model.LanguageLevel;
 import io.turntabl.leaderboardservice.service.LeaderboardRepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -21,5 +26,15 @@ public class LeaderboardFacade {
         return leaderboardRepositoryService.getProfiles().stream()
                 .map(profileToProfileDtoConverter::convert)
                 .collect(toList());
+    }
+    public List<ProfileDto> getProfileByLanguage(String language){
+       List<ProfileDto> list = new ArrayList<>();
+        for(ProfileDto profileDto : getLeaderboard()){
+            for(LanguageLevelDto languageLevelDto : profileDto.getLanguages()){
+                if(languageLevelDto.getName().equals(language))
+                    list.add(profileDto);
+            }
+        }
+        return list;
     }
 }
