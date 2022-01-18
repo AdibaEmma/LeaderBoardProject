@@ -45,13 +45,21 @@ class LeaderboardRepositoryServiceTest {
     @Test
     void shouldAddNewProfile() {
         //given
-        Profile profile1 = mock(Profile.class);
+        Profile profile = mock(Profile.class);
+        profile.setId("emma");
+        profile.setUsername("aweperi");
+        profile.setName("Emmanuel Adiba");
+        profile.setClan("turntabl");
+        profile.setHonour(332);
+        profile.setOverallRank(-5);
 
+        when(profileRepository.save(profile)).thenReturn(profile);
         //when
-        Profile result = underTest.addNewProfile();
+        Profile result = underTest.addNewProfile(profile);
 
         //then
-        String expectedUserId = "Emma";
+        String expectedUserId = "emma";
         assertThat(result.getId()).isEqualTo(expectedUserId);
     }
+
 }

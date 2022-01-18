@@ -17,7 +17,10 @@ public class LeaderboardRepositoryService {
         return profileRepository.findAll();
     }
 
-    public Profile addNewProfile() {
-        return new Profile();
+    public Profile addNewProfile(Profile profile) {
+        boolean isUsernameExist = profileRepository.existsById(profile.getId());
+        if(isUsernameExist) throw new IllegalArgumentException("username is already taken");
+
+        return profileRepository.save(profile);
     }
 }
