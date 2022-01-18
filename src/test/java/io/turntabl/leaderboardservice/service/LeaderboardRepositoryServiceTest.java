@@ -42,4 +42,24 @@ class LeaderboardRepositoryServiceTest {
         assertThat(result).containsExactly(profile1, profile2);
     }
 
+    @Test
+    void shouldAddNewProfile() {
+        //given
+        Profile profile = mock(Profile.class);
+        profile.setId("emma");
+        profile.setUsername("aweperi");
+        profile.setName("Emmanuel Adiba");
+        profile.setClan("turntabl");
+        profile.setHonour(332);
+        profile.setOverallRank(-5);
+
+        when(profileRepository.save(profile)).thenReturn(profile);
+        //when
+        Profile result = underTest.addNewProfile(profile);
+
+        //then
+        String expectedUserId = "emma";
+        assertThat(result.getId()).isEqualTo(expectedUserId);
+    }
+
 }
