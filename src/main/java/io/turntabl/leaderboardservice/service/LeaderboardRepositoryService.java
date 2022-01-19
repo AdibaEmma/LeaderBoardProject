@@ -21,9 +21,6 @@ public class LeaderboardRepositoryService {
     }
 
     public Profile addNewProfile(Profile profile) {
-        boolean isUsernameExist = profileRepository.existsById(profile.getId());
-        if(isUsernameExist) throw new IllegalArgumentException("username is already taken");
-
         return profileRepository.save(profile);
     }
 }
