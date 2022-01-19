@@ -33,16 +33,16 @@ public class LeaderboardFacade {
                 .collect(toList());
     }
 
-    public List<ProfileDto> getProfileByLanguage(String language){
-       List<ProfileDto> list = new ArrayList<>();
-        for(ProfileDto profileDto : getLeaderboard()){
-            for(LanguageLevelDto languageLevelDto : profileDto.getLanguages()){
-                if(languageLevelDto.getName().equals(language))
+    public List<ProfileDto> getProfileByLanguage(String language) {
+        List<ProfileDto> list = new ArrayList<>();
+        for (ProfileDto profileDto : getLeaderboard()) {
+            for (LanguageLevelDto languageLevelDto : profileDto.getLanguages()) {
+                if (languageLevelDto.getName().equals(language))
                     list.add(profileDto);
             }
         }
         return list;
-
+    }
 
     public ProfileDto addProfileToLeaderboard(UserDto user) {
         Profile profile = userDtoToProfileConverter.convert(user);
