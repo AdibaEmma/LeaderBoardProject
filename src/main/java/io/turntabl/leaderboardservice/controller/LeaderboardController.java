@@ -5,6 +5,7 @@ import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,8 +20,14 @@ public class LeaderboardController {
         return leaderboardFacade.getLeaderboard();
     }
 
+
+    @GetMapping("/{language}")
+    public List<ProfileDto> getProfileByLanguage(@PathVariable("language") String language){
+        return leaderboardFacade.getProfileByLanguage(language);
+
     @PostMapping("/add")
     public ProfileDto addUserToLeaderboard(@RequestBody UserDto user) {
         return leaderboardFacade.addProfileToLeaderboard(user);
+
     }
 }

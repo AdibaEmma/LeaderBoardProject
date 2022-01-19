@@ -1,8 +1,10 @@
 package io.turntabl.leaderboardservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.turntabl.leaderboardservice.controller.response.LanguageLevelDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -40,5 +42,19 @@ class LeaderboardControllerTest {
         mockMvc.perform(get("/v1/leaderboard"))
                 .andExpect(status().isOk())
                 .andExpect(result -> assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expectedResponse)));
+    }
+    @Test
+    void shouldFindProfileByLanguage() throws Exception {
+        String lan = "java";
+        ProfileDto profileDto = ProfileDto.builder()
+                .username("lameiraatt")
+                .name("Ana Lameira")
+                .build();
+        List<ProfileDto> expectedResponse = List.of(profileDto);
+        when(leaderboardFacade.getProfileByLanguage(lan)).thenReturn(expectedResponse);
+        mockMvc.perform(get("/v1/leaderboard/java"))
+                .andExpect(status().isOk())
+                .andExpect(result -> assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expectedResponse)));
+
     }
 }
