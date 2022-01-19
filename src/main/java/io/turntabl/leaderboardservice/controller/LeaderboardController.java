@@ -1,6 +1,5 @@
 package io.turntabl.leaderboardservice.controller;
 
-import io.turntabl.leaderboardservice.client.response.UserDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,8 @@ public class LeaderboardController {
         return leaderboardFacade.getLeaderboard();
     }
 
-    @PostMapping("/add")
-    public ProfileDto addUserToLeaderboard(@RequestBody UserDto user) {
-        return leaderboardFacade.addProfileToLeaderboard(user);
+    @PostMapping("/add/{username}")
+    public ProfileDto addUserToLeaderboard(@RequestParam String username) {
+        return leaderboardFacade.addProfileToLeaderboard(username);
     }
 }

@@ -5,21 +5,20 @@ import io.turntabl.leaderboardservice.repository.ProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class LeaderboardRepositoryServiceTest {
 
     @Mock
     private ProfileRepository profileRepository;
-
     private LeaderboardRepositoryService underTest;
 
     @BeforeEach
@@ -43,23 +42,23 @@ class LeaderboardRepositoryServiceTest {
     }
 
     @Test
-    void shouldAddNewProfile() {
+    void shouldAddNewProfile(){
         //given
-        Profile profile = mock(Profile.class);
-        profile.setId("emma");
+//      Profile profile = mock(Profile.class);
+        Profile profile = new Profile();
+        profile.setId("aweperi");
         profile.setUsername("aweperi");
-        profile.setName("Emmanuel Adiba");
+        profile.setName("Emmanuel Aweperi Adiba");
         profile.setClan("turntabl");
         profile.setHonour(332);
         profile.setOverallRank(-5);
-
-        when(profileRepository.save(profile)).thenReturn(profile);
         //when
-        Profile result = underTest.addNewProfile(profile);
+        underTest.addNewProfile(profile);
 
         //then
-        String expectedUserId = "emma";
-        assertThat(result.getId()).isEqualTo(expectedUserId);
+        ArgumentCaptor<Profile> profileArgumentCaptor = ArgumentCaptor.forClass(Profile.class);
+
+        verify(profileRepository).save(profileArgumentCaptor.capture());
     }
 
 }

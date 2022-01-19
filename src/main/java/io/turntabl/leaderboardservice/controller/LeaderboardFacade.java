@@ -1,5 +1,6 @@
 package io.turntabl.leaderboardservice.controller;
 
+import io.turntabl.leaderboardservice.client.CodewarsClient;
 import io.turntabl.leaderboardservice.client.response.UserDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import io.turntabl.leaderboardservice.converter.ProfileToProfileDtoConverter;
@@ -20,6 +21,7 @@ public class LeaderboardFacade {
     private final LeaderboardRepositoryService leaderboardRepositoryService;
     private final ProfileToProfileDtoConverter profileToProfileDtoConverter;
     private final UserDtoToProfileConverter userDtoToProfileConverter;
+    private final CodewarsClient codewarsClient;
 
     public List<ProfileDto> getLeaderboard() {
         return leaderboardRepositoryService.getProfiles().stream()
@@ -27,7 +29,9 @@ public class LeaderboardFacade {
                 .collect(toList());
     }
 
-    public ProfileDto addProfileToLeaderboard(UserDto user) {
+    public ProfileDto addProfileToLeaderboard(String username) {
+        UserDto user = codewarsClient.getUser(username);
+        if(user == null) throw new IllegalArgumentException("username " + username + " does not exists");
         Profile profile = userDtoToProfileConverter.convert(user);
         return profileToProfileDtoConverter.convert(leaderboardRepositoryService.addNewProfile(profile));
     }
