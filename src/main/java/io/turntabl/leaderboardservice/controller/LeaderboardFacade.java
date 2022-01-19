@@ -47,7 +47,6 @@ public class LeaderboardFacade {
         return list;
     }
 
-    public ProfileDto addProfileToLeaderboard(UserDto user) {
     public ProfileDto addProfileToLeaderboard(String username) {
         UserDto user = codewarsClient.getUser(username);
         if(user == null) throw new IllegalArgumentException("username " + username + " does not exists");

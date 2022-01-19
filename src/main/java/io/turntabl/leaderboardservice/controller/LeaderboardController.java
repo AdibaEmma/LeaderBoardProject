@@ -19,8 +19,8 @@ public class LeaderboardController {
         return leaderboardFacade.getLeaderboard();
     }
 
-    @PostMapping("/add")
-    public ProfileDto addUserToLeaderboard(@RequestBody UserDto user) {
-        return leaderboardFacade.addProfileToLeaderboard(user);
+    @PostMapping("/add/{username}")
+    public ProfileDto addUserToLeaderboard(@RequestParam String username) {
+        return leaderboardFacade.addProfileToLeaderboard(username);
     }
 }
