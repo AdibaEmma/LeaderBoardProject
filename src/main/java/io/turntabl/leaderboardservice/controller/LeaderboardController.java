@@ -22,8 +22,9 @@ public class LeaderboardController {
 
 
     @GetMapping("/{language}")
-    public List<ProfileDto> getProfileByLanguage(@PathVariable("language") String language){
+    public List<ProfileDto> getProfileByLanguage(@PathVariable("language") String language) {
         return leaderboardFacade.getProfileByLanguage(language);
+    }
 
     @PostMapping("/add")
     public ProfileDto addUserToLeaderboard(@RequestBody UserDto user) {
