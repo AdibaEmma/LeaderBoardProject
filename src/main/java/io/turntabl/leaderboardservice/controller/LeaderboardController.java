@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("v1/leaderboard")
+@CrossOrigin("http://localhost:4200")
 public class LeaderboardController {
 
     private final LeaderboardFacade leaderboardFacade;
