@@ -10,6 +10,7 @@ import io.turntabl.leaderboardservice.model.LanguageLevel;
 import io.turntabl.leaderboardservice.client.response.UserDto;
 import io.turntabl.leaderboardservice.converter.UserDtoToProfileConverter;
 import io.turntabl.leaderboardservice.model.Profile;
+import io.turntabl.leaderboardservice.model.User;
 import io.turntabl.leaderboardservice.service.LeaderboardRepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -47,10 +48,10 @@ public class LeaderboardFacade {
         return list;
     }
 
-    public ProfileDto addProfileToLeaderboard(String username) {
-        UserDto user = codewarsClient.getUser(username);
-        if(user == null) throw new IllegalArgumentException("username " + username + " does not exists");
-        Profile profile = userDtoToProfileConverter.convert(user);
+    public ProfileDto addProfileToLeaderboard(User user) {
+        UserDto dtouser = codewarsClient.getUser(user.getUsername());
+        if(user == null) throw new IllegalArgumentException("username " + user.getUsername() + " does not exists");
+        Profile profile = userDtoToProfileConverter.convert(dtouser);
         return profileToProfileDtoConverter.convert(leaderboardRepositoryService.addNewProfile(profile));
 
     }
